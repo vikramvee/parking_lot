@@ -16,7 +16,7 @@ public class ParkingLotTest {
 		ParkingLot parkingLot = new ParkingLot();
 		parkingLot.CreateLots(5);
 		
-		assertEquals(5, parkingLot.GetParkingLots());
+		assertEquals(5, parkingLot.getParkingLotSize());
 		
 	}
 	
@@ -26,6 +26,7 @@ public class ParkingLotTest {
 		parkingLot.CreateLots(5);
 		
 		assertEquals("Park the car at slot number 1", parkingLot.ParkTheCar("KA 03 MN 9502", "Grey"));
+		assertEquals("Park the car at slot number 2", parkingLot.ParkTheCar("KA 03 MN 9503", "Grey"));
 	}
 	
 	@Test
@@ -38,6 +39,23 @@ public class ParkingLotTest {
 		parkingLot.ParkTheCar("KA 03 MN 9505", "Grey");
 		
 		assertEquals(true, parkingLot.IsParkingFull());
+	}
+	
+	@Test
+	public void nextAvailableSlot()
+	{
+		ParkingLot parkingLot = new ParkingLot();
+		parkingLot.CreateLots(5);
+		
+		parkingLot.ParkTheCar("KA 03 MN 9502", "Grey");
+		parkingLot.ParkTheCar("KA 03 MN 9503", "Grey");
+		
+		assertEquals(3, parkingLot.getNextAvailableSlot());
+		
+		parkingLot.ParkTheCar("KA 03 MN 9503", "Grey");
+		parkingLot.ParkTheCar("KA 03 MN 9503", "Grey");
+		
+		assertEquals(5, parkingLot.getNextAvailableSlot());
 	}
 	
 }
