@@ -7,51 +7,56 @@ public class ParkingLot {
 	private ArrayList<Lot> parkingLots;
 	private int nextAvailableSlot = 1;
 	
-	public void ParkingLotParser(String instructionUnParsed) {
-		String[] parsedInstruction = instructionUnParsed.split("");
+	public String ParkingLotParser(String instructionUnParsed) {
+		String[] parsedInstruction = instructionUnParsed.split(" ");
 		String instruction = parsedInstruction[0];
 		switch (instruction) {
 		case "create_parking_lot":
-			CreateLots(Integer.parseInt(parsedInstruction[1]));
-			break;
+			return CreateLots(Integer.parseInt(parsedInstruction[1]));
+			
 		case "park":
-			ParkTheCar(parsedInstruction[1], parsedInstruction[2]);
-			break;
+			return ParkTheCar(parsedInstruction[1], parsedInstruction[2]);
+			
 			
 		case "leave":
-			unParkTheCar(Integer.parseInt(parsedInstruction[1]));
-			break;
+			return unParkTheCar(Integer.parseInt(parsedInstruction[1]));
+			
 	
 		case "status":
-			Status();
-			break;
+			return Status();
+			
 	
 		case "registration_numbers_for_cars_with_colour":
-			getRegistratioNumberForCars(parsedInstruction[1]);
-			break;
+			return getRegistratioNumberForCars(parsedInstruction[1]);
+			
 	
 		case "slot_numbers_for_cars_with_colour":
-			getSlotNumberForCarsWithColor(parsedInstruction[1]);
-			break;
+			return getSlotNumberForCarsWithColor(parsedInstruction[1]);
+			
 	
 		case "slot_number_for_registration_number":
-			getSlotNumberForRegistration(parsedInstruction[1]);
-			break;
+			return getSlotNumberForRegistration(parsedInstruction[1]);
+			
 
 		default:
-			break;
+			return "Invalid Input";
+			
 		}
 		
 	}
 	
-	public void CreateLots(int n) {
+	public String CreateLots(int n) {
 		parkingLots = new ArrayList<Lot>();
+		String message = "";
 		
 		for (int i = 0; i < n; i++) {
 			parkingLots.add(new Lot());
 		}
+		message = "Created a parking lot with " + n + " slots";
 		
-		System.out.println("Created a parking lot with " + n + " slots");
+		System.out.println(message);
+		
+		return message;
 	}
 	
 	public int getParkingLotSize() {
@@ -97,26 +102,37 @@ public class ParkingLot {
 		}
 	}
 	
-	public void unParkTheCar(int slotNumber) {
+	public String unParkTheCar(int slotNumber) {
+		String message = "";
+		
 		parkingLots.get(slotNumber - 1).setCarColor("");
 		parkingLots.get(slotNumber - 1).setCarRegistration("");
 		parkingLots.get(slotNumber - 1).setIsOccupied(false);
 		
 		nextAvailableSlot = slotNumber;	
+		message = "Slot number "+ nextAvailableSlot +" is free";
 		
 		System.out.println("Slot number "+ nextAvailableSlot +" is free");
+		
+		return message;
 	}
 	
 	public boolean IsParkingFull() {
 		return !(nextAvailableSlot <= parkingLots.size());		
 	}
 	
-	public void Status() {
+	public String Status() {
+		String message = "Slot No.	Registration No		Colour" + System.lineSeparator();
+		
 		System.out.println("Slot No.	Registration No		Color");
 		
 		for (Lot lot : parkingLots) {
-			System.out.println(lot.getLotNumer() +" 	" + lot.getCarRegistration() +"		"+ lot.getCarColor() );
+			//System.out.println(lot.getLotNumer() +" 	" + lot.getCarRegistration() +"		"+ lot.getCarColor() );
+			if(lot.getIsOccupied())
+				message = message + lot.getLotNumer() + "\t" + lot.getCarRegistration() +"\t"+ lot.getCarColor() + System.lineSeparator();
 		}
+		
+		return message;
 	}
 	
 	public String getRegistratioNumberForCars(String color) {

@@ -29,17 +29,27 @@ public class App
 		case "1":
 			String fileLocation = "/home/adam/Desktop/Songs/parking-lot-1.4.2/parking_lot/functional_spec/fixtures/file_input.txt";
 			List<String> parkingInstructions = readInputFromFile(fileLocation);
-			readTheInstructionAndOperate(parkingInstructions);
+			readTheInstructionFromFileAndOperate(parkingInstructions);
 			break;
 		//Read from console	
 		case "2":
-
+			readTheInstructionFromCommandLine();
+			break;
 		default:
 			break;
 		}
 	}
 
-	private static void readTheInstructionAndOperate(List<String> parkingInstructions) {
+	private static void readTheInstructionFromCommandLine() {
+		// TODO Auto-generated method stub
+		ParkingLot parkingLot = new ParkingLot();
+		while (!System.console().readLine().isBlank()) {
+			parkingLot.ParkingLotParser((System.console().readLine()));
+			
+		}
+	}
+
+	private static void readTheInstructionFromFileAndOperate(List<String> parkingInstructions) {
 		// TODO Auto-generated method stub
 		
 	}

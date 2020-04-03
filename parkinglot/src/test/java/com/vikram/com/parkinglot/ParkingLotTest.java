@@ -129,4 +129,43 @@ public class ParkingLotTest {
 		assertEquals("5", parkingLot.getSlotNumberForRegistration("KA 03 MN 9507"));
 	}
 	
+	@Test
+	public void parkingLotParser() {
+		ParkingLot parkingLot = new ParkingLot();
+		//parkingLot.CreateLots(0);
+		
+		
+		
+		  assertEquals("Created a parking lot with 6 slots",
+		  parkingLot.ParkingLotParser("create_parking_lot 6"));
+		  assertEquals("Allocated slot number: 1",
+		  parkingLot.ParkingLotParser("park KA-01-HH-1234 White"));
+		  assertEquals("Allocated slot number: 2",
+		  parkingLot.ParkingLotParser("park KA-01-HH-9999 White"));
+		  assertEquals("Allocated slot number: 3",
+		  parkingLot.ParkingLotParser("park KA-01-BB-0001 Black"));
+		  assertEquals("Allocated slot number: 4",
+		  parkingLot.ParkingLotParser("park KA-01-HH-7777 Red"));
+		  assertEquals("Allocated slot number: 5",
+		  parkingLot.ParkingLotParser("park KA-01-HH-2701 Blue"));
+		  assertEquals("Allocated slot number: 6",
+		  parkingLot.ParkingLotParser("park KA-01-HH-3141 Black"));
+		  assertEquals("Slot number 4 is free",
+		  parkingLot.ParkingLotParser("leave 4"));
+		 
+		 
+		
+		String Message = "Slot No.	Registration No		Colour" + System.lineSeparator();
+		
+		  Message = Message + "1	KA-01-HH-1234	White"+ System.lineSeparator();
+		  Message = Message + "2	KA-01-HH-9999	White"+ System.lineSeparator();
+		  Message = Message + "3	KA-01-BB-0001	Black"+ System.lineSeparator();
+		  Message = Message + "5	KA-01-HH-2701	Blue"+ System.lineSeparator();
+		  Message = Message + "6	KA-01-HH-3141	Black" +  System.lineSeparator();
+		 
+		 
+			 
+	    assertEquals(Message, parkingLot.Status());
+	}
+	
 }
