@@ -17,27 +17,41 @@ public class App
 {
     public static void main( String[] args )
     {
-        System.out.println( "Please enter 1 for file input or 2 for command line inputs" );
-        getInputMethod();
+    	String filePath = "";
+    	if(args.length > 0)
+    		filePath = args[0];
+        //System.out.println( "Please enter 1 for file input or 2 for command line inputs" );
+        getInputMethod(filePath);
     }
 
-	private static void getInputMethod() {
-		String inputFormat = System.console().readLine();
-        switch (inputFormat) {
-        
-        //Read from file
-		case "1":
-			String fileLocation = "/home/adam/Desktop/Songs/parking-lot-1.4.2/parking_lot/functional_spec/fixtures/file_input.txt";
-			List<String> parkingInstructions = readInputFromFile(fileLocation);
+	private static void getInputMethod(String filePath) {
+		//String inputFormat = System.console().readLine();
+		System.out.println(filePath);
+		
+		if(filePath != "") {
+			List<String> parkingInstructions = readInputFromFile(filePath);
 			readTheInstructionFromFileAndOperate(parkingInstructions);
-			break;
-		//Read from console	
-		case "2":
-			readTheInstructionFromCommandLine();
-			break;
-		default:
-			break;
 		}
+		else
+		{
+			readTheInstructionFromCommandLine();
+		}
+		
+//        switch (inputFormat) {
+//        
+//        //Read from file
+//		case "1":
+//			String fileLocation = "/home/adam/Desktop/Songs/parking-lot-1.4.2/parking_lot/functional_spec/fixtures/file_input.txt";
+//			List<String> parkingInstructions = readInputFromFile(fileLocation);
+//			readTheInstructionFromFileAndOperate(parkingInstructions);
+//			break;
+//		//Read from console	
+//		case "2":
+//			
+//			break;
+//		default:
+//			break;
+//		}
 	}
 
 	private static void readTheInstructionFromCommandLine() {
@@ -51,7 +65,10 @@ public class App
 
 	private static void readTheInstructionFromFileAndOperate(List<String> parkingInstructions) {
 		// TODO Auto-generated method stub
-		
+		ParkingLot parkingLot = new ParkingLot();
+		for (String string : parkingInstructions) {
+			parkingLot.ParkingLotParser(string);
+		}
 	}
 
 	public static List<String> readInputFromFile(String fileName) {
@@ -60,6 +77,7 @@ public class App
 	    try
 	    { 
 	      lines = Files.readAllLines(Paths.get(fileName), StandardCharsets.UTF_8); 
+	      
 	    } 
 	  
 	    catch (IOException e) 
