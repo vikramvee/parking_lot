@@ -15,5 +15,5 @@ mvn clean install
 
 echo "$bin/target"
 cd "$bin/target"
-java -cp parkinglot-0.0.1-SNAPSHOT.jar com.vikram.com.parkinglot.App "$functionalSpec/file_input.txt"
+java -cp parkinglot-0.0.1-SNAPSHOT.jar com.vikram.com.parkinglot.App 
 

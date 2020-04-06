@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  * Hello world!
@@ -57,8 +58,9 @@ public class App
 	private static void readTheInstructionFromCommandLine() {
 		// TODO Auto-generated method stub
 		ParkingLot parkingLot = new ParkingLot();
-		while (!System.console().readLine().isBlank()) {
-			parkingLot.ParkingLotParser((System.console().readLine()));
+		Scanner scanner = new Scanner(System.in);
+		while (scanner.hasNext()) {
+			parkingLot.ParkingLotParser(scanner.nextLine());
 			
 		}
 	}

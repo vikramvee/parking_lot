@@ -80,7 +80,7 @@ public class ParkingLotTest {
 		ParkingLot parkingLot = new ParkingLot();
 		parkingLot.CreateLots(5);
 		
-		parkingLot.ParkTheCar("KA 03 MN 9502", "White");
+    	parkingLot.ParkTheCar("KA 03 MN 9502", "White");
 		parkingLot.ParkTheCar("KA 03 MN 9503", "Grey");	
 		parkingLot.ParkTheCar("KA 03 MN 9504", "Grey");
 		parkingLot.ParkTheCar("KA 03 MN 9505", "White");

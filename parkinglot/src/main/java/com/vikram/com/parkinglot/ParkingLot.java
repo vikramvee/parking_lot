@@ -9,6 +9,8 @@ public class ParkingLot {
 	
 	public String ParkingLotParser(String instructionUnParsed) {
 		String[] parsedInstruction = instructionUnParsed.split(" ");
+		if(parsedInstruction.length < 1)
+			return "Invalid Input";
 		String instruction = parsedInstruction[0];
 		switch (instruction) {
 		case "create_parking_lot":
@@ -80,10 +82,12 @@ public class ParkingLot {
 			parkingLots.get(nextAvailableSlot - 1).setIsOccupied(true);
 			parkingLots.get(nextAvailableSlot - 1).setLotNumber(nextAvailableSlot);
 			
+			message = "Allocated slot number: " + (nextAvailableSlot);
+			System.out.println(message);
+			
 			setNextAvailableSlot(nextAvailableSlot);
 			
-			message = "Allocated slot number: " + (nextAvailableSlot - 1);
-			System.out.println(message);
+		
 			
 			return message;
 		}			
@@ -121,10 +125,15 @@ public class ParkingLot {
 		return !(nextAvailableSlot <= parkingLots.size());		
 	}
 	
+	public boolean IsEmpty()
+	{
+		return nextAvailableSlot == 1;
+	}
+	
 	public String Status() {
 		String message = "Slot No.	Registration No		Colour" + System.lineSeparator();
 		
-		System.out.println("Slot No.	Registration No		Color");
+		//System.out.println("Slot No.	Registration No		Color")  + System.lineSeparator();
 		
 		for (Lot lot : parkingLots) {
 			//System.out.println(lot.getLotNumer() +" 	" + lot.getCarRegistration() +"		"+ lot.getCarColor() );
@@ -132,43 +141,63 @@ public class ParkingLot {
 				message = message + lot.getLotNumer() + "\t" + lot.getCarRegistration() +"\t"+ lot.getCarColor() + System.lineSeparator();
 		}
 		
+		System.out.println(message);
+		
 		return message;
 	}
 	
 	public String getRegistratioNumberForCars(String color) {
 		String carsRegistrationNumber = "";
 		
+		if(parkingLots.size() < 1 || IsEmpty())
+			return "No cars in parking Lot";
+		
 		for (Lot lot : parkingLots) {
-			if(lot.getCarColor() ==  color)
+			if(lot.getCarColor().equals(color.trim()))
 				carsRegistrationNumber = carsRegistrationNumber + ", " + lot.getCarRegistration();
 		}
-		System.out.println(carsRegistrationNumber.substring(1).trim());
+		if(carsRegistrationNumber != "")
+			System.out.println(carsRegistrationNumber.substring(1).trim());
+		else
+			System.out.println("Not found");
 		
-		return carsRegistrationNumber.substring(1).trim();
+		return carsRegistrationNumber.length() > 0 ? carsRegistrationNumber.substring(1).trim() : "";
 	}
 	
 	public String getSlotNumberForCarsWithColor(String color) {
 		String slotNumber = "";
 		
+		if(parkingLots.size() < 1 || IsEmpty())
+			return "No cars in parking Lot";
+		
 		for (Lot lot : parkingLots) {
-			if(lot.getCarColor() ==  color)
+			if(lot.getCarColor().equals(color.trim()))
 				slotNumber = slotNumber + ", " + lot.getLotNumer();
 		}
-		System.out.println(slotNumber.substring(1).trim());
+		if(slotNumber != "")
+			System.out.println(slotNumber.substring(1).trim());
+		else
+			System.out.println("Not found");
 		
-		return slotNumber.substring(1).trim();
+		return slotNumber.length() > 0 ? slotNumber.substring(1).trim() : "";
 	}
 	
 	public String getSlotNumberForRegistration(String registrationNumber) {
 		String slotNumber = "";
 		
+		if(parkingLots.size() < 1 || IsEmpty())
+			return "No cars in parking Lot";
+		
 		for (Lot lot : parkingLots) {
-			if(lot.getCarRegistration() ==  registrationNumber)
+			if(lot.getCarRegistration().equals(registrationNumber))
 				slotNumber = slotNumber + ", " + lot.getLotNumer();
 		}
-		System.out.println(slotNumber.substring(1).trim());
+		if(slotNumber != "")
+			System.out.println(slotNumber.substring(1).trim());
+		else
+			System.out.println("Not found");
 		
-		return slotNumber.substring(1).trim();
+		return slotNumber.length() > 0 ? slotNumber.substring(1).trim() : "";
 	}
 	
 }
